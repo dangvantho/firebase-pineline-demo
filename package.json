@@ -6,7 +6,10 @@
   "author": "dangvantho <dangvantho12as0@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx nodemon"
+    "dev": "npx nodemon",
+    "start": "node index.js",
+    "deploy:delete-staging-tag": "git fetch --tags && git push origin --delete $(git tag -l 'staging-*') || true && git fetch origin --prune 'refs/tags/*:refs/tags/*'",
+    "deploy:staging": "yarn deploy:delete-staging-tag && TAG=`echo staging-$(date +%Y%m%d-%H%M%S)` && git tag $TAG && git push origin $TAG"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
